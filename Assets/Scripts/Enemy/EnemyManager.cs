@@ -25,20 +25,17 @@ public class EnemyManager : MonoBehaviour
     // used for debugging
     private void createEnemies()
     {
-        GameObject enemy = activateEnemyFromPool(enemyPool, transform.position, Quaternion.identity);
 
-        moveEnemyToWaypoint(enemy, waypoints[0]);
-
-        //StartCoroutine(createEnemiesOnPaths(pathCreators, 10, 1.2f));
+        StartCoroutine(createEnemiesOnPaths(enemyPool, pathCreators, 10, 1.2f));
+        createEnemiesWithWaypoints(enemyPool, waypoints);
     }
 
     /// <summary>
     /// *Must be started as a coroutine*
-    /// Takes in two int arrays, one for enemy indexes and another for path indexes, the script places 
-    /// each enemy id on its respective path id, for example: if enemyIndexes[0] = 1 and pathIndexes[0] = 3
-    /// the script will place an enemy of index 1 in the enemies array, on the path of index 3 in the pathCreators array.
+    /// Activates enemies from the enemy pool and places each one on a random path, seperated by a length of time 
+    /// defined by the delay variable.
     /// </summary>
-    private IEnumerator createEnemiesOnPaths(PathCreator[] paths, int numOfEnemies ,float delay)
+    private IEnumerator createEnemiesOnPaths(ObjectPool enemyPool, PathCreator[] paths, int numOfEnemies, float delay)
     {
 
         for (int i = 0; i < numOfEnemies; i++)
@@ -49,14 +46,31 @@ public class EnemyManager : MonoBehaviour
 
             if (enemy != null)
             {
-                placeEnemyOnPath(enemy, pathCreators[randomPath], 0);
+                placeEnemyOnPath(enemy, pathCreators[randomPath]);
             }
 
             yield return new WaitForSeconds(delay);
         }
     }
 
-    private void placeEnemyOnPath(GameObject enemy, PathCreator pathCreator, float offsetOnPath)
+    /// <summary>
+    /// Activates enemies from the enemy pool, will activate one enemy for each waypoint given.
+    /// </summary>
+    private void createEnemiesWithWaypoints(ObjectPool enemyPool, GameObject[] waypoints)
+    {
+
+        for (int i = 0; i < waypoints.Length; i++)
+        {
+            GameObject enemy = activateEnemyFromPool(enemyPool, transform.position, Quaternion.identity);
+
+            if (enemy != null)
+            {
+                moveEnemyToWaypoint(enemy, waypoints[i]);
+            }
+        }
+    }
+
+    private void placeEnemyOnPath(GameObject enemy, PathCreator pathCreator)
     {
         MoveAlongPath moveAlongPath = enemy.GetComponent<MoveAlongPath>();
         if (moveAlongPath != null)
