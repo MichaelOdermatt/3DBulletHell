@@ -41,4 +41,9 @@ public class MoveToWaypoint : MonoBehaviour
             transform.position += movementVector * speed * Time.deltaTime;
         }
     }
+
+    public void ResetValues()
+    {
+        Waypoint = null;
+    }
 }

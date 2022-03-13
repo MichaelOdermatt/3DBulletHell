@@ -9,7 +9,7 @@ public class Killable : MonoBehaviour
     private Color flashColor = Color.red;
     private float flashTime = 0.1f;
     public float initialHealth;
-    public float actualHealth;
+    private float actualHealth;
 
     void Start()
     {
@@ -43,5 +43,10 @@ public class Killable : MonoBehaviour
     private void ResetColor()
     {
         renderer.material.color = originalColor; 
+    }
+
+    public void ResetValues()
+    {
+        actualHealth = initialHealth;
     }
 }

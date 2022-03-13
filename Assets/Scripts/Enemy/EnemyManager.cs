@@ -18,9 +18,15 @@ public class EnemyManager : MonoBehaviour
     {
         // Subscribe to the EnemyFire event
         EnemyFire.fire += spawnBulletForEnemy;
+        // Subscribe to the EnemyKilled delegate, if an enemy is killed run spawnNewWave
+        KillableEnemy.enemyKilled += spawnNewWave;
+
+        // create first wave of enemies.
+        createEnemies();
     }
 
-    void Update()
+    // check if all enemies are dead, if so create new ones.
+    private void spawnNewWave()
     {
         if (enemyPool.AreAllObjectsDeactivated())
         {

@@ -39,4 +39,10 @@ public class MoveAlongPath : MonoBehaviour
             } 
         }
     }
+
+    public void ResetValues()
+    {
+        pathCreator = null;
+        distanceTravelled = 0f;
+    }
 }
