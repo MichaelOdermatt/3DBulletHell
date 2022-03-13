@@ -6,6 +6,7 @@ using PathCreation;
 
 public class EnemyManager : MonoBehaviour
 {
+    public GameObject[] waypoints;
     public PathCreator[] pathCreators;
     public GameObject[] enemyTypes;
     public ObjectPool enemyBulletPool;
@@ -24,7 +25,11 @@ public class EnemyManager : MonoBehaviour
     // used for debugging
     private void createEnemies()
     {
-        StartCoroutine(createEnemiesOnPaths(pathCreators, 10, 1.2f));
+        GameObject enemy = activateEnemyFromPool(enemyPool, transform.position, Quaternion.identity);
+
+        moveEnemyToWaypoint(enemy, waypoints[0]);
+
+        //StartCoroutine(createEnemiesOnPaths(pathCreators, 10, 1.2f));
     }
 
     /// <summary>
@@ -57,6 +62,18 @@ public class EnemyManager : MonoBehaviour
         if (moveAlongPath != null)
         {
             moveAlongPath.pathCreator = pathCreator;
+        }
+    }
+
+    private void moveEnemyToWaypoint(GameObject enemy, GameObject waypoint)
+    {
+        MoveToWaypoint moveToWaypoint = enemy.GetComponent<MoveToWaypoint>();
+
+        enemy.transform.position = new Vector3(waypoint.transform.position.x, 90, waypoint.transform.position.z);
+
+        if (moveToWaypoint != null)
+        {
+            moveToWaypoint.Waypoint = waypoint;
         }
     }
 
