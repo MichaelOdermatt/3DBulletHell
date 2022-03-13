@@ -155,4 +155,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   renderer: {fileID: 0}
-  health: 100
+  initialHealth: 100
+  actualHealth: 100

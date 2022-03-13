@@ -8,20 +8,22 @@ public class Killable : MonoBehaviour
     private Color originalColor;
     private Color flashColor = Color.red;
     private float flashTime = 0.1f;
-    public float health;
+    public float initialHealth;
+    public float actualHealth;
 
     void Start()
     {
+        actualHealth = initialHealth;
         renderer = GetComponent<MeshRenderer>();
         originalColor = renderer.material.color;
     }
 
     public void TakeDamage(float amount)
     {
-        health -= amount;
+        actualHealth -= amount;
         FlashRed();
 
-        if (health <= 0)
+        if (actualHealth <= 0)
         {
             Die();
         }

@@ -8,6 +8,9 @@ public class KillableEnemy : Killable
     {
         gameObject.SetActive(false);
 
+        // reset the game objects health
+        actualHealth = initialHealth;
+
         MoveAlongPath moveAlongPath = gameObject.GetComponent<MoveAlongPath>();
         if (moveAlongPath != null)
         {
