@@ -31,6 +31,18 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
+    public bool AreAllObjectsDeactivated()
+    {
+        for(int i = 0; i < amountToPool; i++)
+        {
+            if(pooledObjects[i].activeInHierarchy)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public GameObject GetPooledObject()
     {
         for(int i = 0; i < amountToPool; i++)

@@ -18,14 +18,19 @@ public class EnemyManager : MonoBehaviour
     {
         // Subscribe to the EnemyFire event
         EnemyFire.fire += spawnBulletForEnemy;
+    }
 
-        createEnemies();
+    void Update()
+    {
+        if (enemyPool.AreAllObjectsDeactivated())
+        {
+            createEnemies();
+        }
     }
 
     // used for debugging
     private void createEnemies()
     {
-
         StartCoroutine(createEnemiesOnPaths(enemyPool, pathCreators, 10, 1.2f));
         createEnemiesWithWaypoints(enemyPool, waypoints);
     }

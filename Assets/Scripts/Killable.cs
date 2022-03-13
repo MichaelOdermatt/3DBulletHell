@@ -27,7 +27,7 @@ public class Killable : MonoBehaviour
         }
     }
 
-    protected virtual void Die()
+    public virtual void Die()
     {
         Destroy(gameObject);
     }

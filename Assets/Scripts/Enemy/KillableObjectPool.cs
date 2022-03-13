@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KillableObjectPool : Killable 
 {
-    protected override void Die()
+    public override void Die()
     {
         gameObject.SetActive(false);
     }

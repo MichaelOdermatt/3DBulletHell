@@ -8,7 +8,7 @@ public class MoveAlongPath : MonoBehaviour
     public PathCreator pathCreator;
     public bool destroySelfAtEnd;
     public float speed = 10f;
-    float distanceTravelled;
+    public float distanceTravelled;
 
     // Update is called once per frame
     void Update()
@@ -32,7 +32,11 @@ public class MoveAlongPath : MonoBehaviour
         } else if (destroySelfAtEnd)
         {
             // Destroy self if the end of the path is reached
-            gameObject.SetActive(false);
+            Killable killable = gameObject.GetComponent<Killable>();
+            if (killable != null)
+            {
+                killable.Die();
+            } 
         }
     }
 }
