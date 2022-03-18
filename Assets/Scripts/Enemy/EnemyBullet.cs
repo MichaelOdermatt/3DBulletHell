@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class EnemyBullet : MonoBehaviour
 {
+    private Rigidbody rigidBody;
     private float damage = 25f;
     private float Speed = 15f;
+    Vector3 direction = new Vector3(0, 0, -1);
     private float createdAtTime;
     private float destroyAfterTime = 6f;
 
     private void Start()
     {
         createdAtTime = Time.time;
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     /// <summary>
@@ -24,15 +27,19 @@ public class EnemyBullet : MonoBehaviour
 
     void Update()
     {
-        moveBullet();
         destroyAfter(createdAtTime, destroyAfterTime);
+    }
+
+    private void FixedUpdate()
+    {
+        moveBullet(); 
     }
 
     void moveBullet()
     {
-        Vector3 direction = new Vector3(0, 0, -1);
-        Vector3 currentPos = transform.position;
-        transform.position = currentPos + direction * Speed * Time.deltaTime; 
+        Vector3 currentPos = rigidBody.position;
+        Vector3 newPos = currentPos + direction * Speed * Time.deltaTime;
+        rigidBody.MovePosition(newPos);
     }
 
     private void OnTriggerEnter(Collider other)

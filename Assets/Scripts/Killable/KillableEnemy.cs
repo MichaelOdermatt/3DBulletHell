@@ -25,7 +25,7 @@ public class KillableEnemy : Killable
         MoveToWaypoint moveToWaypoint = gameObject.GetComponent<MoveToWaypoint>();
         if (moveToWaypoint != null)
         {
-            moveAlongPath.ResetValues();
+            moveToWaypoint.ResetValues();
         }
 
         // fire the deleget to notify the enemy manager

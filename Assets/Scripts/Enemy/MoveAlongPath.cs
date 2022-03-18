@@ -5,17 +5,23 @@ using PathCreation;
 
 public class MoveAlongPath : MonoBehaviour
 {
+    private Rigidbody rigidbody;
+
     public PathCreator pathCreator;
     public bool destroySelfAtEnd;
     public float speed = 10f;
     public float distanceTravelled;
 
+    private void Start()
+    {
+        rigidbody = GetComponent<Rigidbody>();
+    }
+
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         moveAlongPath(speed);
     }
-
 
     private void moveAlongPath(float speed)
     {
@@ -27,7 +33,8 @@ public class MoveAlongPath : MonoBehaviour
         if (distanceTravelled < (pathCreator.path.length - speed * Time.deltaTime))
         {
             distanceTravelled += speed * Time.deltaTime;
-            transform.position = pathCreator.path.GetPointAtDistance(distanceTravelled);
+            Vector3 newPos = pathCreator.path.GetPointAtDistance(distanceTravelled);
+            rigidbody.MovePosition(newPos); 
 
         } else if (destroySelfAtEnd)
         {
@@ -44,5 +51,6 @@ public class MoveAlongPath : MonoBehaviour
     {
         pathCreator = null;
         distanceTravelled = 0f;
+        rigidbody.position = Vector3.zero;
     }
 }

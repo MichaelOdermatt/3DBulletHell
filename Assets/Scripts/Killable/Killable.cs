@@ -31,7 +31,6 @@ public class Killable : MonoBehaviour
 
     public virtual void Die()
     {
-        Destroy(gameObject);
     }
 
     private void FlashRed()

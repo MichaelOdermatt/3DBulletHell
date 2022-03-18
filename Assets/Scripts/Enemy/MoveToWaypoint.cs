@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MoveToWaypoint : MonoBehaviour
 {
+    private Rigidbody rigidbody;
+
     public GameObject Waypoint;
     public float speed = 15;
 
@@ -12,11 +14,11 @@ public class MoveToWaypoint : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        rigidbody = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         MoveTowardWaypoint(Waypoint, speed);
     }
@@ -30,20 +32,20 @@ public class MoveToWaypoint : MonoBehaviour
 
 
         Vector3 waypointCoords = Waypoint.transform.position;
-        float distanceToDestination = Vector3.Distance(transform.position, waypointCoords);
+        float distanceToDestination = Vector3.Distance(rigidbody.position, waypointCoords);
 
         if ((distanceToDestination - speed * Time.deltaTime) > distanceThreshold)
         {
-            Debug.Log("shouldbemoving");
-
             Vector3 movementVector = (waypointCoords - transform.position).normalized;
+            Vector3 newPos = rigidbody.position += movementVector * speed * Time.deltaTime;
 
-            transform.position += movementVector * speed * Time.deltaTime;
+            rigidbody.MovePosition(newPos);
         }
     }
 
     public void ResetValues()
     {
         Waypoint = null;
+        rigidbody.position = Vector3.zero;
     }
 }
