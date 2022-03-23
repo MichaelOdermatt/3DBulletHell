@@ -11,7 +11,7 @@ public class EnemyBullet : MonoBehaviour
     private float createdAtTime;
     private float destroyAfterTime = 6f;
 
-    private void Start()
+    private void Awake()
     {
         createdAtTime = Time.time;
         rigidBody = GetComponent<Rigidbody>();

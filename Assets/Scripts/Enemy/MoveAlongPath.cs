@@ -12,7 +12,7 @@ public class MoveAlongPath : MonoBehaviour
     public float speed = 10f;
     public float distanceTravelled;
 
-    private void Start()
+    private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
     }

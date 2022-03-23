@@ -47,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
     private float maxCameraRotationAngleX = 10f;
     private float maxCameraRotationAngleZ = 10f;
 
-    private void Start()
+    private void Awake()
     {
         modelMeshRenderer = playerModel.GetComponent<SkinnedMeshRenderer>();
         originalColor = modelMeshRenderer.material.color;
@@ -100,8 +100,8 @@ public class PlayerMovement : MonoBehaviour
         animator.SetInteger("IsAccending", (int)vertical);
 
         // keep the player moving forward at all times
-        meshGen.offset.y += mapScrollSpeed;
-        meshGen.updateAll();
+        //meshGen.offset.y += mapScrollSpeed;
+        //meshGen.updateAll();
     }
 
     /// <summary>
