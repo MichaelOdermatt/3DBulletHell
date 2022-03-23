@@ -98,7 +98,7 @@ public class EnemyManager : MonoBehaviour
 
         if (moveToWaypoint != null)
         {
-            moveToWaypoint.Waypoint = waypoint;
+            moveToWaypoint.setWaypoint(waypoint);
         }
     }
 

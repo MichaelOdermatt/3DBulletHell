@@ -7,15 +7,16 @@ public class MoveToWaypoint : MonoBehaviour
     private Rigidbody rigidbody;
 
     public GameObject Waypoint;
+    public Vector3 WaypointCoords;
     public float speed = 15;
 
     private float distanceThreshold = 0.25f;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
     }
+
 
     // Update is called once per frame
     void FixedUpdate()
@@ -31,12 +32,11 @@ public class MoveToWaypoint : MonoBehaviour
         }
 
 
-        Vector3 waypointCoords = Waypoint.transform.position;
-        float distanceToDestination = Vector3.Distance(rigidbody.position, waypointCoords);
+        float distanceToDestination = Vector3.Distance(rigidbody.position, WaypointCoords);
 
         if ((distanceToDestination - speed * Time.deltaTime) > distanceThreshold)
         {
-            Vector3 movementVector = (waypointCoords - transform.position).normalized;
+            Vector3 movementVector = (WaypointCoords - transform.position).normalized;
             Vector3 newPos = rigidbody.position += movementVector * speed * Time.deltaTime;
 
             rigidbody.MovePosition(newPos);
@@ -47,5 +47,11 @@ public class MoveToWaypoint : MonoBehaviour
     {
         Waypoint = null;
         rigidbody.position = Vector3.zero;
+    }
+
+    public void setWaypoint(GameObject waypoint)
+    {
+        Waypoint = waypoint;
+        WaypointCoords = Waypoint.transform.position;
     }
 }
