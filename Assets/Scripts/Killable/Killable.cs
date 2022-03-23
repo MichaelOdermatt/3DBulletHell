@@ -11,7 +11,7 @@ public class Killable : MonoBehaviour
     public float initialHealth;
     private float actualHealth;
 
-    void Start()
+    void Awake()
     {
         actualHealth = initialHealth;
         renderer = GetComponent<MeshRenderer>();
