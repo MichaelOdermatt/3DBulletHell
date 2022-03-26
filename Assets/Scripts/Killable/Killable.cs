@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Killable : MonoBehaviour
+public abstract class Killable : MonoBehaviour
 {
     public MeshRenderer renderer;
     private Color originalColor;
@@ -29,9 +29,7 @@ public class Killable : MonoBehaviour
         }
     }
 
-    public virtual void Die()
-    {
-    }
+    public abstract void Die();
 
     private void FlashRed()
     {
