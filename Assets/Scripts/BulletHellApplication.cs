@@ -8,7 +8,7 @@ using UnityEngine;
 public class BulletHellApplication : MonoBehaviour
 {
 
-    public PlayerModel playerModel;
+    public ModelBase modelBase;
     public PlayerView playerView;
     public PlayerController playerController;
 
