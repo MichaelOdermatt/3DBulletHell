@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class PlayerView : BulletHellElement 
 {
+    public CharacterController characterController;
 }

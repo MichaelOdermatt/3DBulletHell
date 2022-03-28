@@ -6,6 +6,9 @@ public class BulletHellElement : MonoBehaviour
 {
     public BulletHellApplication app
     {
-        get { return GameObject.FindObjectOfType<BulletHellApplication>(); }
+        get
+        {
+            return GameObject.FindObjectOfType<BulletHellApplication>();
+        }
     }
 }
