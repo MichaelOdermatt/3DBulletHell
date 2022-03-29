@@ -9,7 +9,7 @@ public class BulletHellApplication : MonoBehaviour
 {
 
     public ModelBase modelBase;
-    public PlayerView playerView;
-    public PlayerController playerController;
+    public ViewBase viewBase;
+    public ControllerBase controllerBase;
 
 }

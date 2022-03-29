@@ -31,7 +31,7 @@ public class PlayerController : BulletHellElement
         rotationSpeed = app.modelBase.playerModel.rotationSpeed;
         maxRotationAngleZ = app.modelBase.playerModel.maxRotationAngleZ;
 
-        characterController = app.playerView.characterController;
+        characterController = app.viewBase.playerView.characterController;
     }
 
     private void Update()
