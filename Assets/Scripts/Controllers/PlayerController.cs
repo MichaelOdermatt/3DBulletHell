@@ -16,6 +16,9 @@ public class PlayerController : BulletHellElement
     private float maxHorizontalPosition;
     private float minHorizontalPosition;
 
+    private float rotationSpeed;
+    private float maxRotationAngleZ;
+
     private void Awake()
     {
         maxSpeed = app.modelBase.playerModel.maxSpeed;
@@ -24,6 +27,9 @@ public class PlayerController : BulletHellElement
         minVerticalPosition = app.modelBase.playerModel.minVerticalPosition;
         maxHorizontalPosition = app.modelBase.playerModel.maxHorizontalPosition;
         minHorizontalPosition = app.modelBase.playerModel.minHorizontalPosition;
+
+        rotationSpeed = app.modelBase.playerModel.rotationSpeed;
+        maxRotationAngleZ = app.modelBase.playerModel.maxRotationAngleZ;
 
         characterController = app.playerView.characterController;
     }
@@ -36,6 +42,11 @@ public class PlayerController : BulletHellElement
         // get player movement direction
         direction = new Vector3(horizontal, 0f, vertical).normalized;
 
+        // set player rotaton when an input is given
+        Quaternion target = Quaternion.Euler(0, 0, maxRotationAngleZ * horizontal * -1);
+        Quaternion currentRotation = characterController.transform.rotation;
+        characterController.transform.rotation = Quaternion.Slerp(currentRotation, target, rotationSpeed * Time.deltaTime);
+
         moveWhileClamping(direction * maxSpeed * Time.deltaTime);
     }
 
@@ -44,8 +55,8 @@ public class PlayerController : BulletHellElement
     /// </summary>
     private void moveWhileClamping(Vector3 movementVector)
     {
-        float xPositionCurrentStep = app.playerView.characterController.transform.position.x;
-        float zPositionCurrentStep = app.playerView.characterController.transform.position.z;
+        float xPositionCurrentStep = characterController.transform.position.x;
+        float zPositionCurrentStep = characterController.transform.position.z;
 
         float xPositionNextStep = xPositionCurrentStep + movementVector.x;
         float zPositionNextStep = zPositionCurrentStep + movementVector.z;
