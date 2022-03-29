@@ -67,12 +67,19 @@ public class PlayerMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, target, rotationSpeed * Time.deltaTime);
 
         // set camera XZ rotation when an input is given
-        Quaternion cameraTarget = Quaternion.Euler(cameraDefaultRotation.x + maxCameraRotationAngleX * vertical * -1 , cameraDefaultRotation.y, maxCameraRotationAngleZ * horizontal * -1);
-        camera.transform.rotation = Quaternion.Slerp(camera.transform.rotation, cameraTarget, cameraRotationSpeed * Time.deltaTime);
+        Quaternion cameraTarget = Quaternion.Euler(cameraDefaultRotation.x + maxCameraRotationAngleX * vertical * -1 , 
+            cameraDefaultRotation.y, 
+            maxCameraRotationAngleZ * horizontal * -1);
+
+        camera.transform.rotation = Quaternion.Slerp(camera.transform.rotation, 
+            cameraTarget, 
+            cameraRotationSpeed * Time.deltaTime);
 
         // bob the camera up and down
         cameraBobTimer += cameraBobSpeed * Time.deltaTime;
-        camera.transform.position = new Vector3(cameraDefaultPosition.x, cameraDefaultPosition.y + Mathf.Sin(cameraBobTimer) * cameraBobHeight, cameraDefaultPosition.z);
+        camera.transform.position = new Vector3(cameraDefaultPosition.x, 
+            cameraDefaultPosition.y + Mathf.Sin(cameraBobTimer) * cameraBobHeight, 
+            cameraDefaultPosition.z);
 
         // get player movement direction
         Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
@@ -91,7 +98,8 @@ public class PlayerMovement : MonoBehaviour
 
         // scroll the map when the player moves
         var threshold = 0.5;
-        if (transform.position.x >= maxHorizontalPosition - threshold || transform.position.x <= minHorizontalPosition + threshold)
+        if (transform.position.x >= maxHorizontalPosition - threshold 
+            || transform.position.x <= minHorizontalPosition + threshold)
         {
             meshGen.offset.x += horizontal * mapScrollSpeed;
         }

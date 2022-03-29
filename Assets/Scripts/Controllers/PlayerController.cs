@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerController : BulletHellElement 
 {
+    private PlayerModel playerModel;
+
     private float horizontal;
     private float vertical;
     private Vector3 direction;
@@ -21,15 +23,16 @@ public class PlayerController : BulletHellElement
 
     private void Awake()
     {
-        maxSpeed = app.modelBase.playerModel.maxSpeed;
+        playerModel = app.modelBase.playerModel;
 
-        maxVerticalPosition = app.modelBase.playerModel.maxVerticalPosition;
-        minVerticalPosition = app.modelBase.playerModel.minVerticalPosition;
-        maxHorizontalPosition = app.modelBase.playerModel.maxHorizontalPosition;
-        minHorizontalPosition = app.modelBase.playerModel.minHorizontalPosition;
+        maxVerticalPosition = playerModel.maxVerticalPosition;
+        minVerticalPosition = playerModel.minVerticalPosition;
+        maxHorizontalPosition = playerModel.maxHorizontalPosition;
+        minHorizontalPosition = playerModel.minHorizontalPosition;
 
-        rotationSpeed = app.modelBase.playerModel.rotationSpeed;
-        maxRotationAngleZ = app.modelBase.playerModel.maxRotationAngleZ;
+        maxSpeed = playerModel.maxSpeed;
+        rotationSpeed = playerModel.rotationSpeed;
+        maxRotationAngleZ = playerModel.maxRotationAngleZ;
 
         characterController = app.viewBase.playerView.characterController;
     }
