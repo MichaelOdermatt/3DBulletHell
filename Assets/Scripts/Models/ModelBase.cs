@@ -6,4 +6,5 @@ public class ModelBase : MonoBehaviour
 {
     public PlayerModel playerModel;
     public CameraModel cameraModel;
+    public BasicEnemyModel basicEnemyModel;
 }

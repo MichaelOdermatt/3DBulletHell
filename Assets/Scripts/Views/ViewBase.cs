@@ -6,4 +6,5 @@ public class ViewBase : MonoBehaviour
 {
     public PlayerView playerView;
     public CameraView cameraView;
+    public BasicEnemyView basicEnemyView;
 }

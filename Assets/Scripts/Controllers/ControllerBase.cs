@@ -6,4 +6,5 @@ public class ControllerBase : MonoBehaviour
 {
     public CameraController cameraController;
     public PlayerController playerController;
+    public BasicEnemyController basicEnemyController;
 }
