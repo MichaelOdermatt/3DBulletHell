@@ -5,6 +5,7 @@ using UnityEngine;
 public class ModelBase : MonoBehaviour
 {
     public PlayerModel playerModel;
+    public PlayerBulletModel playerBulletModel;
     public CameraModel cameraModel;
     public BasicEnemyModel basicEnemyModel;
 }
