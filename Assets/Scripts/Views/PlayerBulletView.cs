@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletView : MonoBehaviour
+public class PlayerBulletView : BulletHellElement 
 {
     // Start is called before the first frame update
     void Start()

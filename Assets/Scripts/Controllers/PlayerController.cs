@@ -42,6 +42,14 @@ public class PlayerController : BulletHellElement
         horizontal = Input.GetAxisRaw("Horizontal");
         vertical = Input.GetAxisRaw("Vertical");
 
+        if (Input.GetButtonDown("Fire1"))
+        {
+            shoot();
+        }
+    }
+
+    private void FixedUpdate()
+    {
         // get player movement direction
         direction = new Vector3(horizontal, 0f, vertical).normalized;
 
@@ -75,6 +83,11 @@ public class PlayerController : BulletHellElement
         }
 
         characterController.Move(movementVector);
+    }
+
+    private void shoot()
+    {
+
     }
 
 }
