@@ -15,5 +15,19 @@ public class PlayerBulletController : BulletHellElement
     {
         objectToPool = app.viewBase.playerBulletView.gameObject;
         amountToPool = app.modelBase.playerBulletModel.bulletsToPool;
+
+        initializeObjectPool();
+    }
+
+    private void initializeObjectPool() 
+    { 
+        pooledBulletViews = new List<GameObject>();
+        GameObject tmp;
+        for(int i = 0; i < amountToPool; i++)
+        {
+            tmp = Instantiate(objectToPool);
+            tmp.SetActive(false);
+            pooledBulletViews.Add(tmp);
+        }
     }
 }
