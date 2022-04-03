@@ -56,13 +56,17 @@ public class PlayerController : BulletHellElement
         // set player rotaton when an input is given
         Quaternion target = Quaternion.Euler(0, 0, maxRotationAngleZ * horizontal * -1);
         Quaternion currentRotation = characterController.transform.rotation;
-        characterController.transform.rotation = Quaternion.Slerp(currentRotation, target, rotationSpeed * Time.deltaTime);
+        characterController.transform.rotation = Quaternion.Slerp(
+            currentRotation, 
+            target, 
+            rotationSpeed * Time.deltaTime);
 
         moveWhileClamping(direction * maxSpeed * Time.deltaTime);
     }
 
     /// <summary>
-    /// If your x or y position in the next frame is greater than the cap, set the movement value in that direction to zero. 
+    /// If your x or y position in the next frame is greater than the cap, set the 
+    /// movement value in that direction to zero. 
     /// </summary>
     private void moveWhileClamping(Vector3 movementVector)
     {

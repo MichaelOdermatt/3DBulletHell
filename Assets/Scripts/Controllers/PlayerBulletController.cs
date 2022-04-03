@@ -30,4 +30,16 @@ public class PlayerBulletController : BulletHellElement
             pooledBulletViews.Add(tmp);
         }
     }
+
+    public GameObject GetPooledObject()
+    {
+        for(int i = 0; i < amountToPool; i++)
+        {
+            if(!pooledBulletViews[i].activeInHierarchy)
+            {
+                return pooledBulletViews[i];
+            }
+        }
+        return null;
+    }
 }
