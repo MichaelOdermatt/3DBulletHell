@@ -5,35 +5,18 @@ using UnityEngine;
 public class PlayerController : BulletHellElement 
 {
     private PlayerModel playerModel;
+    private PlayerBulletController playerBulletController;
 
     private float horizontal;
     private float vertical;
     private Vector3 direction;
-    private float maxSpeed;
 
     private CharacterController characterController;
-
-    private float maxVerticalPosition;
-    private float minVerticalPosition;
-    private float maxHorizontalPosition;
-    private float minHorizontalPosition;
-
-    private float rotationSpeed;
-    private float maxRotationAngleZ;
 
     private void Awake()
     {
         playerModel = app.modelBase.playerModel;
-
-        maxVerticalPosition = playerModel.maxVerticalPosition;
-        minVerticalPosition = playerModel.minVerticalPosition;
-        maxHorizontalPosition = playerModel.maxHorizontalPosition;
-        minHorizontalPosition = playerModel.minHorizontalPosition;
-
-        maxSpeed = playerModel.maxSpeed;
-        rotationSpeed = playerModel.rotationSpeed;
-        maxRotationAngleZ = playerModel.maxRotationAngleZ;
-
+        playerBulletController = app.controllerBase.playerBulletController;
         characterController = app.viewBase.playerView.characterController;
     }
 
@@ -44,7 +27,7 @@ public class PlayerController : BulletHellElement
 
         if (Input.GetButtonDown("Fire1"))
         {
-            shoot();
+            playerBulletController.CreateBulletAtTransform(characterController.transform);
         }
     }
 
@@ -54,14 +37,14 @@ public class PlayerController : BulletHellElement
         direction = new Vector3(horizontal, 0f, vertical).normalized;
 
         // set player rotaton when an input is given
-        Quaternion target = Quaternion.Euler(0, 0, maxRotationAngleZ * horizontal * -1);
+        Quaternion target = Quaternion.Euler(0, 0, playerModel.maxRotationAngleZ * horizontal * -1);
         Quaternion currentRotation = characterController.transform.rotation;
         characterController.transform.rotation = Quaternion.Slerp(
             currentRotation, 
             target, 
-            rotationSpeed * Time.deltaTime);
+            playerModel.rotationSpeed * Time.deltaTime);
 
-        moveWhileClamping(direction * maxSpeed * Time.deltaTime);
+        moveWhileClamping(direction * playerModel.maxSpeed * Time.deltaTime);
     }
 
     /// <summary>
@@ -76,22 +59,17 @@ public class PlayerController : BulletHellElement
         float xPositionNextStep = xPositionCurrentStep + movementVector.x;
         float zPositionNextStep = zPositionCurrentStep + movementVector.z;
 
-        if (zPositionNextStep > maxVerticalPosition || zPositionNextStep < minVerticalPosition)
+        if (zPositionNextStep > playerModel.maxVerticalPosition || zPositionNextStep < playerModel.minVerticalPosition)
         {
             movementVector.z = 0;
         } 
 
-        if (xPositionNextStep > maxHorizontalPosition || xPositionNextStep < minHorizontalPosition)
+        if (xPositionNextStep > playerModel.maxHorizontalPosition || xPositionNextStep < playerModel.minHorizontalPosition)
         {
             movementVector.x = 0;
         }
 
         characterController.Move(movementVector);
-    }
-
-    private void shoot()
-    {
-
     }
 
 }
