@@ -52,7 +52,20 @@ public class PlayerBulletController : BulletHellElement, IController
         BulletInstance.SetActive(true);
         bulletRigidBody.velocity = playerBulletModel.bulletVelocity;
         bulletRigidBody.position = transform.position; 
-        bulletRigidBody.rotation = transform.rotation;
+    }
+
+    private void deactivateBulletInstance(GameObject bulletInstance)
+    {
+        bulletInstance.SetActive(false);
+
+        Rigidbody bulletRigidBody = bulletInstance.GetComponent<Rigidbody>();
+        if (bulletRigidBody == null)
+        {
+            return;
+        }
+
+        bulletRigidBody.velocity = Vector3.zero;
+        bulletRigidBody.position = Vector3.zero;
     }
 
     public GameObject GetPooledObject()
@@ -69,5 +82,13 @@ public class PlayerBulletController : BulletHellElement, IController
 
     public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
     {
+        switch (p_event_path)
+        {
+            case BulletHellNotification.PlayerBulletOnInvisible:
+                GameObject gameObject = (GameObject)p_data[0];
+
+                deactivateBulletInstance(gameObject);
+                break;
+        }
     }
 }

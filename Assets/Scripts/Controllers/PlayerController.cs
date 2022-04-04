@@ -74,11 +74,5 @@ public class PlayerController : BulletHellElement, IController
 
     public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
     {
-        switch (p_event_path)
-        {
-            case BulletHellNotification.PlayerBulletOnInvisible:
-                Debug.Log("Notification received");
-                break;
-        }
     }
 }
