@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ViewBase : MonoBehaviour
+public class ViewContainer : MonoBehaviour
 {
     public PlayerView playerView;
     // prefab bullet object

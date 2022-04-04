@@ -15,9 +15,9 @@ public class PlayerController : BulletHellElement
 
     private void Awake()
     {
-        playerModel = app.modelBase.playerModel;
-        playerBulletController = app.controllerBase.playerBulletController;
-        characterController = app.viewBase.playerView.characterController;
+        playerModel = app.modelContainer.playerModel;
+        playerBulletController = app.controllerContainer.playerBulletController;
+        characterController = app.viewContainer.playerView.characterController;
     }
 
     private void Update()

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ModelBase : MonoBehaviour
+public class ModelContainer : MonoBehaviour
 {
     public PlayerModel playerModel;
     public PlayerBulletModel playerBulletModel;

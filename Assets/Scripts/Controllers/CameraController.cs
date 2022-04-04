@@ -22,14 +22,14 @@ public class CameraController : BulletHellElement
 
     private void Awake()
     {
-        cameraModel = app.modelBase.cameraModel;
-        cameraView = app.viewBase.cameraView;
+        cameraModel = app.modelContainer.cameraModel;
+        cameraView = app.viewContainer.cameraView;
 
         cameraBobHeight = cameraModel.cameraBobHeight;
         cameraBobSpeed = cameraModel.cameraBobSpeed;
         cameraBobTimer = cameraModel.cameraBobTimer;
-        cameraDefaultPosition = app.viewBase.cameraView.transform.position;
-        cameraDefaultRotation = app.viewBase.cameraView.transform.rotation.eulerAngles;
+        cameraDefaultPosition = app.viewContainer.cameraView.transform.position;
+        cameraDefaultRotation = app.viewContainer.cameraView.transform.rotation.eulerAngles;
         cameraRotationSpeed = cameraModel.cameraRotationSpeed;
         maxCameraRotationAngleX = cameraModel.maxCameraRotationAngleX;
         maxCameraRotationAngleZ = cameraModel.maxCameraRotationAngleZ;
