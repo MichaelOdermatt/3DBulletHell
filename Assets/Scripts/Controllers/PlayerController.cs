@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : BulletHellElement 
+public class PlayerController : BulletHellElement, IController
 {
     private PlayerModel playerModel;
     private PlayerBulletController playerBulletController;
@@ -72,4 +72,13 @@ public class PlayerController : BulletHellElement
         characterController.Move(movementVector);
     }
 
+    public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
+    {
+        switch (p_event_path)
+        {
+            case BulletHellNotification.PlayerBulletOnInvisible:
+                Debug.Log("Notification received");
+                break;
+        }
+    }
 }

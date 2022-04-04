@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : BulletHellElement 
+public class CameraController : BulletHellElement, IController
 {
 
     private CameraModel cameraModel;
@@ -19,6 +19,7 @@ public class CameraController : BulletHellElement
     private float cameraRotationSpeed;
     private float maxCameraRotationAngleX;
     private float maxCameraRotationAngleZ;
+
 
     private void Awake()
     {
@@ -54,5 +55,9 @@ public class CameraController : BulletHellElement
         cameraView.transform.position = new Vector3(cameraDefaultPosition.x, 
             cameraDefaultPosition.y + Mathf.Sin(cameraBobTimer) * cameraBobHeight, 
             cameraDefaultPosition.z);
+    }
+
+    public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
+    {
     }
 }

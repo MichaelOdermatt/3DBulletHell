@@ -6,6 +6,6 @@ public class PlayerBulletView : BulletHellElement
 {
     private void OnBecameInvisible()
     {
-        Debug.Log("Destroy me"); 
+        app.Notify(BulletHellNotification.PlayerBulletOnInvisible, this);
     }
 }

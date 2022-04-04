@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletController : BulletHellElement 
+public class PlayerBulletController : BulletHellElement, IController
 {
 
     // will be in charge of creating bullet pool and providing methods to access pooled bullets
@@ -65,5 +65,9 @@ public class PlayerBulletController : BulletHellElement
             }
         }
         return null;
+    }
+
+    public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
+    {
     }
 }
