@@ -8,4 +8,9 @@ public class PlayerBulletView : BulletHellElement
     {
         app.Notify(BulletHellNotification.PlayerBulletOnInvisible, this, gameObject);
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        app.Notify(BulletHellNotification.PlayerBulletOnCollision, this, gameObject, collision); 
+    }
 }

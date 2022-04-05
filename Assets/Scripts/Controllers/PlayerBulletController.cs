@@ -85,6 +85,7 @@ public class PlayerBulletController : BulletHellElement, IController
         switch (p_event_path)
         {
             case BulletHellNotification.PlayerBulletOnInvisible:
+            case BulletHellNotification.PlayerBulletOnCollision:
                 GameObject gameObject = (GameObject)p_data[0];
 
                 deactivateBulletInstance(gameObject);

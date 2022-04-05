@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class BulletHellNotification
 {
-    public const string PlayerBulletOnInvisible = "playerBullet.OnInvisible";
+    public const string PlayerBulletOnInvisible = "PlayerBullet.OnInvisible";
+    public const string PlayerBulletOnCollision = "PlayerBullet.OnCollision";
 }
