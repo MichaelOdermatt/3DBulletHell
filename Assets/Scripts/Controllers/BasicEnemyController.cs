@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class BasicEnemyController : EnemyControllerBase, IController
 {
-    private BasicEnemyModel model;
+    private BasicEnemyModel basicEnemyModel;
+    private PlayerBulletModel playerBulletModel;
 
     private void Awake()
     {
-        model = app.modelContainer.basicEnemyModel;
+        basicEnemyModel = app.modelContainer.basicEnemyModel;
+        playerBulletModel = app.modelContainer.playerBulletModel;
     }
 
     public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
@@ -21,8 +23,7 @@ public class BasicEnemyController : EnemyControllerBase, IController
 
                 if (collider.GetComponent<PlayerBulletView>())
                 {
-                    // need to get damage ammount from playerBulletModel somehow
-                    takeDamage(1);
+                    takeDamage(playerBulletModel.damageAmount);
                 }
 
                 break;
@@ -31,6 +32,6 @@ public class BasicEnemyController : EnemyControllerBase, IController
 
     private void takeDamage(int damageAmount)
     {
-        model.Health -= damageAmount;
+        basicEnemyModel.Health -= damageAmount;
     }
 }
