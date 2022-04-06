@@ -6,11 +6,15 @@ public class BasicEnemyController : EnemyControllerBase, IController
 {
     private BasicEnemyModel basicEnemyModel;
     private PlayerBulletModel playerBulletModel;
+    private Renderer basicEnemyRenderer;
 
     private void Awake()
     {
         basicEnemyModel = app.modelContainer.basicEnemyModel;
         playerBulletModel = app.modelContainer.playerBulletModel;
+
+        basicEnemyRenderer = app.viewContainer.basicEnemyView.GetComponent<Renderer>();
+        basicEnemyModel.originalColor = basicEnemyRenderer.material.color;
     }
 
     public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
@@ -33,5 +37,18 @@ public class BasicEnemyController : EnemyControllerBase, IController
     private void takeDamage(int damageAmount)
     {
         basicEnemyModel.Health -= damageAmount;
+        FlashRed();
+    }
+
+    private void FlashRed()
+    {
+
+        basicEnemyRenderer.material.color = basicEnemyModel.flashColor;
+        Invoke("ResetColor", basicEnemyModel.flashTime);
+    }
+
+    private void ResetColor()
+    {
+        basicEnemyRenderer.material.color = basicEnemyModel.originalColor; 
     }
 }
