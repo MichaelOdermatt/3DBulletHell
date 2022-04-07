@@ -27,7 +27,7 @@ public class PlayerController : BulletHellElement, IController
 
         if (Input.GetButtonDown("Fire1"))
         {
-            playerBulletController.CreateBulletAtTransform(characterController.transform);
+            playerBulletController.CreateBulletAtTransform(characterController.transform.position);
         }
     }
 

@@ -35,7 +35,7 @@ public class PlayerBulletController : BulletHellElement, IController
         }
     }
 
-    public void CreateBulletAtTransform(Transform transform)
+    public void CreateBulletAtTransform(Vector3 position)
     {
         GameObject BulletInstance = GetPooledObject();
         if (BulletInstance == null)
@@ -50,14 +50,12 @@ public class PlayerBulletController : BulletHellElement, IController
         }
 
         BulletInstance.SetActive(true);
+        bulletRigidBody.position = position;
         bulletRigidBody.velocity = playerBulletModel.bulletVelocity;
-        bulletRigidBody.position = transform.position; 
     }
 
     private void deactivateBulletInstance(GameObject bulletInstance)
     {
-        bulletInstance.SetActive(false);
-
         Rigidbody bulletRigidBody = bulletInstance.GetComponent<Rigidbody>();
         if (bulletRigidBody == null)
         {
@@ -66,6 +64,7 @@ public class PlayerBulletController : BulletHellElement, IController
 
         bulletRigidBody.velocity = Vector3.zero;
         bulletRigidBody.position = Vector3.zero;
+        bulletInstance.SetActive(false);
     }
 
     public GameObject GetPooledObject()
