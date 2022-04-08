@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerBulletController : BulletHellElement, IController
 {
 
-    // will be in charge of creating bullet pool and providing methods to access pooled bullets
-
     private PlayerBulletModel playerBulletModel;
 
     private List<GameObject> pooledBulletViews;
@@ -35,7 +33,7 @@ public class PlayerBulletController : BulletHellElement, IController
         }
     }
 
-    public void CreateBulletAtTransform(Vector3 position)
+    public void CreateBulletAtPosition(Vector3 position)
     {
         GameObject BulletInstance = GetPooledObject();
         if (BulletInstance == null)
@@ -43,28 +41,24 @@ public class PlayerBulletController : BulletHellElement, IController
             return;
         }
 
+        // since the physics update cycles stop firing when an object is deactivated
+        // set the position of the game object rather than on its rigidbody.
+        BulletInstance.transform.position = position;
+        BulletInstance.SetActive(true);
+
         Rigidbody bulletRigidBody = BulletInstance.GetComponent<Rigidbody>();
         if (bulletRigidBody == null)
         {
             return;
         }
 
-        BulletInstance.SetActive(true);
-        bulletRigidBody.position = position;
         bulletRigidBody.velocity = playerBulletModel.bulletVelocity;
     }
 
     private void deactivateBulletInstance(GameObject bulletInstance)
     {
-        Rigidbody bulletRigidBody = bulletInstance.GetComponent<Rigidbody>();
-        if (bulletRigidBody == null)
-        {
-            return;
-        }
-
-        bulletRigidBody.velocity = Vector3.zero;
-        bulletRigidBody.position = Vector3.zero;
         bulletInstance.SetActive(false);
+        bulletInstance.transform.position = Vector3.zero;
     }
 
     public GameObject GetPooledObject()
