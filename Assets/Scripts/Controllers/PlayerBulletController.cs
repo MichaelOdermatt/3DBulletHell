@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletController : BulletHellElement, IController
+public class PlayerBulletController : BulletHellElement, IController, IObjectPool
 {
 
     private PlayerBulletModel playerBulletModel;
