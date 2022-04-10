@@ -6,7 +6,7 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
 {
     private BasicEnemyModel basicEnemyModel;
     private PlayerBulletModel playerBulletModel;
-    private Renderer basicEnemyRenderer;
+    private MeshRenderer basicEnemyRenderer;
 
     private List<GameObject> pooledEnemyViews;
     private GameObject objectToPool;
@@ -17,11 +17,10 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
         basicEnemyModel = app.modelContainer.basicEnemyModel;
         playerBulletModel = app.modelContainer.playerBulletModel;
 
-        basicEnemyRenderer = app.viewContainer.basicEnemyView.GetComponent<Renderer>();
-        basicEnemyModel.originalColor = basicEnemyRenderer.material.color;
-
         amountToPool = basicEnemyModel.amountToPool;
         objectToPool = basicEnemyModel.objectToPool;
+
+        initializeObjectPool();
     }
 
     public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
@@ -34,7 +33,10 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
 
                 if (collider.GetComponent<PlayerBulletView>())
                 {
-                    takeDamage(playerBulletModel.damageAmount);
+                    GameObject basicEnemyView = (GameObject)p_data[1];
+                    MeshRenderer basicEnemyViewRenderer = basicEnemyView.GetComponent<MeshRenderer>();
+
+                    takeDamage(playerBulletModel.damageAmount, basicEnemyViewRenderer);
                 }
 
                 break;
@@ -53,7 +55,6 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
         }
     }
 
-
     public GameObject GetPooledObject()
     {
         for(int i = 0; i < amountToPool; i++)
@@ -66,20 +67,27 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
         return null;
     }
 
-    private void takeDamage(int damageAmount)
+    private void takeDamage(int damageAmount, MeshRenderer basicEnemyViewRenderer)
     {
         basicEnemyModel.Health -= damageAmount;
-        FlashRed();
+
+        Debug.Log(basicEnemyViewRenderer);
+        if (basicEnemyViewRenderer != null)
+        {
+            Color originalColor = basicEnemyViewRenderer.material.color;
+            FlashRed(basicEnemyViewRenderer, originalColor);
+        }
     }
 
-    private void FlashRed()
+    private void FlashRed(MeshRenderer basicEnemyViewRenderer, Color originalColor)
     {
-        basicEnemyRenderer.material.color = basicEnemyModel.flashColor;
-        Invoke("ResetColor", basicEnemyModel.flashTime);
+        basicEnemyViewRenderer.material.color = basicEnemyModel.flashColor;
+        StartCoroutine(ResetColor(basicEnemyViewRenderer, originalColor, basicEnemyModel.flashTime));
     }
 
-    private void ResetColor()
+    private IEnumerator ResetColor(MeshRenderer basicEnemyViewRenderer, Color originalColor, float delayTime)
     {
-        basicEnemyRenderer.material.color = basicEnemyModel.originalColor; 
+        yield return new WaitForSeconds(delayTime);
+        basicEnemyViewRenderer.material.color = originalColor; 
     }
 }
