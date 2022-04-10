@@ -81,8 +81,11 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
 
     private void FlashRed(MeshRenderer basicEnemyViewRenderer, Color originalColor)
     {
-        basicEnemyViewRenderer.material.color = basicEnemyModel.flashColor;
-        StartCoroutine(ResetColor(basicEnemyViewRenderer, originalColor, basicEnemyModel.flashTime));
+        if (basicEnemyViewRenderer.material.color != basicEnemyModel.flashColor)
+        {
+            basicEnemyViewRenderer.material.color = basicEnemyModel.flashColor;
+            StartCoroutine(ResetColor(basicEnemyViewRenderer, originalColor, basicEnemyModel.flashTime));
+        }
     }
 
     private IEnumerator ResetColor(MeshRenderer basicEnemyViewRenderer, Color originalColor, float delayTime)
