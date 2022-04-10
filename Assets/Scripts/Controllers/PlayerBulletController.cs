@@ -13,10 +13,10 @@ public class PlayerBulletController : BulletHellElement, IController, IObjectPoo
 
     private void Awake()
     {
-        playerBulletModel = app.modelContainer.playerBulletModel; 
+        playerBulletModel = app.modelContainer.playerBulletModel;
 
-        objectToPool = app.viewContainer.playerBulletView.gameObject;
-        amountToPool = app.modelContainer.playerBulletModel.bulletsToPool;
+        objectToPool = playerBulletModel.objectToPool;
+        amountToPool = playerBulletModel.bulletsToPool;
 
         initializeObjectPool();
     }
