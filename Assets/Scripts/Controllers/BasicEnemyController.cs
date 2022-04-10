@@ -6,9 +6,9 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
 {
     private BasicEnemyModel basicEnemyModel;
     private PlayerBulletModel playerBulletModel;
-    private MeshRenderer basicEnemyRenderer;
 
     private List<GameObject> pooledEnemyViews;
+    private float[] enemyViewHealths;
     private GameObject objectToPool;
     private int amountToPool;
 
@@ -33,10 +33,7 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
 
                 if (collider.GetComponent<PlayerBulletView>())
                 {
-                    GameObject basicEnemyView = (GameObject)p_data[1];
-                    MeshRenderer basicEnemyViewRenderer = basicEnemyView.GetComponent<MeshRenderer>();
-
-                    takeDamage(playerBulletModel.damageAmount, basicEnemyViewRenderer);
+                    onCollisionWithPlayerBullet(p_data);
                 }
 
                 break;
@@ -53,6 +50,12 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
             tmp.SetActive(false);
             pooledEnemyViews.Add(tmp);
         }
+
+        enemyViewHealths = new float[amountToPool];
+        for(int i = 0; i < amountToPool; i++)
+        {
+            enemyViewHealths[i] = basicEnemyModel.initialHealth;
+        }
     }
 
     public GameObject GetPooledObject()
@@ -67,11 +70,26 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
         return null;
     }
 
-    private void takeDamage(int damageAmount, MeshRenderer basicEnemyViewRenderer)
+    private void onCollisionWithPlayerBullet(params object[] p_data)
     {
-        basicEnemyModel.Health -= damageAmount;
+        GameObject basicEnemyView = (GameObject)p_data[1];
+        MeshRenderer basicEnemyViewRenderer = basicEnemyView.GetComponent<MeshRenderer>();
+        int healthIndex = pooledEnemyViews.IndexOf(basicEnemyView);
 
-        Debug.Log(basicEnemyViewRenderer);
+        takeDamage(playerBulletModel.damageAmount, 
+            basicEnemyViewRenderer, 
+            ref enemyViewHealths[healthIndex]);
+    }
+
+    private void takeDamage(int damageAmount, MeshRenderer basicEnemyViewRenderer, ref float basicEnemyViewHealth)
+    {
+        if (basicEnemyViewHealth <= 0)
+        {
+            return;
+        }
+
+        basicEnemyViewHealth -= damageAmount;
+
         if (basicEnemyViewRenderer != null)
         {
             Color originalColor = basicEnemyViewRenderer.material.color;

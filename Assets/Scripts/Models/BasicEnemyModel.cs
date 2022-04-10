@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BasicEnemyModel : EnemyModelBase 
 {
-    public float Health = 100f;
+    public float initialHealth = 100f;
     public Color flashColor = Color.red;
     public Color originalColor;
     public float flashTime = 0.1f;
