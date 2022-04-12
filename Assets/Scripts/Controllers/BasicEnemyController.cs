@@ -73,22 +73,22 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
     private void onCollisionWithPlayerBullet(params object[] p_data)
     {
         GameObject basicEnemyView = (GameObject)p_data[1];
-        MeshRenderer basicEnemyViewRenderer = basicEnemyView.GetComponent<MeshRenderer>();
-        int healthIndex = pooledEnemyViews.IndexOf(basicEnemyView);
 
-        takeDamage(playerBulletModel.damageAmount, 
-            basicEnemyViewRenderer, 
-            ref enemyViewHealths[healthIndex]);
+        takeDamage(playerBulletModel.damageAmount, basicEnemyView);
     }
 
-    private void takeDamage(int damageAmount, MeshRenderer basicEnemyViewRenderer, ref float basicEnemyViewHealth)
+    private void takeDamage(int damageAmount, GameObject basicEnemyView)
     {
-        if (basicEnemyViewHealth <= 0)
+        int healthIndex = pooledEnemyViews.IndexOf(basicEnemyView);
+
+        if (enemyViewHealths[healthIndex] <= 0)
         {
+            resetEnemyObject(basicEnemyView);
             return;
         }
+        enemyViewHealths[healthIndex] -= damageAmount;
 
-        basicEnemyViewHealth -= damageAmount;
+        MeshRenderer basicEnemyViewRenderer = basicEnemyView.GetComponent<MeshRenderer>();
 
         if (basicEnemyViewRenderer != null)
         {
@@ -110,5 +110,14 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
     {
         yield return new WaitForSeconds(delayTime);
         basicEnemyViewRenderer.material.color = originalColor; 
+    }
+
+    private void resetEnemyObject(GameObject basicEnemyView)
+    {
+        basicEnemyView.SetActive(false); 
+        basicEnemyView.transform.position = Vector3.zero;
+
+        int healthIndex = pooledEnemyViews.IndexOf(basicEnemyView);
+        enemyViewHealths[healthIndex] = basicEnemyModel.initialHealth;
     }
 }
