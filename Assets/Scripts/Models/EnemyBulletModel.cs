@@ -2,17 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBulletModel : MonoBehaviour
+public class EnemyBulletModel : BulletHellElement 
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public int bulletsToPool = 50;
+    public int damageAmount = 15;
+    public Vector3 bulletVelocity = new Vector3(0, 0, -20);
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    public GameObject objectToPool;
 }

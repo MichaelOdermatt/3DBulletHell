@@ -2,17 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBulletController : MonoBehaviour
+public class EnemyBulletController : BaseBulletController 
 {
-    // Start is called before the first frame update
-    void Start()
+    private EnemyBulletModel enemyBulletModel;
+
+    private void Awake()
     {
-        
+        enemyBulletModel = app.modelContainer.enemyBulletModel;
+
+        objectToPool = enemyBulletModel.objectToPool;
+        amountToPool = enemyBulletModel.bulletsToPool;
+
+        initializeObjectPool();
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void OnNotification(string p_event_path, Object p_target, params object[] p_data)
     {
-        
     }
 }
