@@ -2,14 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerBulletController : BulletHellElement, IController, IObjectPool
+public class PlayerBulletController : BaseBulletController, IController, IObjectPool
 {
 
     private PlayerBulletModel playerBulletModel;
-
-    private List<GameObject> pooledBulletViews;
-    private GameObject objectToPool;
-    private int amountToPool;
 
     private void Awake()
     {
@@ -21,19 +17,7 @@ public class PlayerBulletController : BulletHellElement, IController, IObjectPoo
         initializeObjectPool();
     }
 
-    private void initializeObjectPool() 
-    { 
-        pooledBulletViews = new List<GameObject>();
-        GameObject tmp;
-        for(int i = 0; i < amountToPool; i++)
-        {
-            tmp = Instantiate(objectToPool);
-            tmp.SetActive(false);
-            pooledBulletViews.Add(tmp);
-        }
-    }
-
-    public void CreateBulletAtPosition(Vector3 position)
+    public override void CreateBulletAtPosition(Vector3 position)
     {
         GameObject BulletInstance = GetPooledObject();
         if (BulletInstance == null)
@@ -55,25 +39,7 @@ public class PlayerBulletController : BulletHellElement, IController, IObjectPoo
         bulletRigidBody.velocity = playerBulletModel.bulletVelocity;
     }
 
-    private void deactivateBulletInstance(GameObject bulletInstance)
-    {
-        bulletInstance.SetActive(false);
-        bulletInstance.transform.position = Vector3.zero;
-    }
-
-    public GameObject GetPooledObject()
-    {
-        for(int i = 0; i < amountToPool; i++)
-        {
-            if(!pooledBulletViews[i].activeInHierarchy)
-            {
-                return pooledBulletViews[i];
-            }
-        }
-        return null;
-    }
-
-    public void OnNotification(string p_event_path, Object p_target, params object[] p_data)
+    public override void OnNotification(string p_event_path, Object p_target, params object[] p_data)
     {
         switch (p_event_path)
         {

@@ -8,6 +8,7 @@ public class BasicEnemyModel : EnemyModelBase
     public Color flashColor = Color.red;
     public Color originalColor;
     public float flashTime = 0.1f;
+    public double fireRate = 1.5f;
 
     public int amountToPool = 20;
     public GameObject objectToPool;

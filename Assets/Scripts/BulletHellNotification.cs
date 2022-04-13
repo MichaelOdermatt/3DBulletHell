@@ -7,4 +7,5 @@ public class BulletHellNotification
     public const string PlayerBulletOnInvisible = "PlayerBullet.OnInvisible";
     public const string PlayerBulletOnCollision = "PlayerBullet.OnCollision";
     public const string BasicEnemyOnCollision = "BasicEnemy.OnCollision";
+    public const string EnemyBulletOnInvisible = "EnemyBullet.OnInvisible";
 }

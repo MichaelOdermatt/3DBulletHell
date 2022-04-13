@@ -2,17 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBulletView : MonoBehaviour
+public class EnemyBulletView : BulletHellElement 
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnBecameInvisible()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        app.Notify(BulletHellNotification.PlayerBulletOnInvisible, this, gameObject);
     }
 }

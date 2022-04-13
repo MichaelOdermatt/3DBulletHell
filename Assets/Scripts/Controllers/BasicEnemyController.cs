@@ -11,6 +11,7 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
     private float[] enemyViewHealths;
     private GameObject objectToPool;
     private int amountToPool;
+    private double lastShootTime;
 
     private void Awake()
     {
@@ -68,6 +69,11 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
             }
         }
         return null;
+    }
+
+    private void fireBullet(Vector3 position)
+    {
+        //app.controllerContainer.enemyBulletController.CreateBulletAtPosition(transform.position);
     }
 
     private void onCollisionWithPlayerBullet(params object[] p_data)

@@ -21,6 +21,12 @@ public abstract class BaseBulletController : BulletHellElement, IObjectPool, ICo
         return null;
     }
 
+    protected void deactivateBulletInstance(GameObject bulletInstance)
+    {
+        bulletInstance.SetActive(false);
+        bulletInstance.transform.position = Vector3.zero;
+    }
+
     protected void initializeObjectPool() 
     { 
         pooledBulletViews = new List<GameObject>();
@@ -33,5 +39,8 @@ public abstract class BaseBulletController : BulletHellElement, IObjectPool, ICo
         }
     }
 
+    public abstract void CreateBulletAtPosition(Vector3 position);
+
     public abstract void OnNotification(string p_event_path, Object p_target, params object[] p_data);
+
 }
