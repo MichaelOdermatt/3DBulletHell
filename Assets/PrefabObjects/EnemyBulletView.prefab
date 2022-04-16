@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6095080680900457675}
   - component: {fileID: 1311348034346091063}
   - component: {fileID: 69163135472293880}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyBulletView
   m_TagString: Untagged
   m_Icon: {fileID: 0}

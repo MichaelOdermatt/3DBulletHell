@@ -19,6 +19,6 @@ public class BasicEnemyView : BulletHellElement
         }
         lastShootTime = Time.time;
 
-        app.Notify(BulletHellNotification.BasicEnemyOnFire, this, gameObject);
+        app.Notify(BulletHellNotification.BasicEnemyOnFire, this, gameObject.transform.position);
     }
 }

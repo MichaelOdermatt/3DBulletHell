@@ -38,6 +38,11 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
                 }
 
                 break;
+
+            case BulletHellNotification.BasicEnemyOnFire:
+                Vector3 position = (Vector3)p_data[0];
+                fireBulletFromPosition(position);
+                break;
         }
     }
 
@@ -71,9 +76,9 @@ public class BasicEnemyController : EnemyControllerBase, IController, IObjectPoo
         return null;
     }
 
-    private void fireBullet(Vector3 position)
+    private void fireBulletFromPosition(Vector3 position)
     {
-        //app.controllerContainer.enemyBulletController.CreateBulletAtPosition(transform.position);
+        app.controllerContainer.enemyBulletController.CreateBulletAtPosition(position);
     }
 
     private void onCollisionWithPlayerBullet(params object[] p_data)

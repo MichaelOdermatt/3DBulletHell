@@ -30,7 +30,7 @@ public class EnemyBulletController : BaseBulletController
         BulletInstance.SetActive(true);
 
         Rigidbody bulletRigidBody = BulletInstance.GetComponent<Rigidbody>();
-        if (bulletRigidBody == null)
+        if (bulletRigidBody != null)
         {
             bulletRigidBody.velocity = enemyBulletModel.bulletVelocity;
         }

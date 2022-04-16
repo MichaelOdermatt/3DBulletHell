@@ -31,12 +31,10 @@ public class PlayerBulletController : BaseBulletController, IController, IObject
         BulletInstance.SetActive(true);
 
         Rigidbody bulletRigidBody = BulletInstance.GetComponent<Rigidbody>();
-        if (bulletRigidBody == null)
+        if (bulletRigidBody != null)
         {
-            return;
+            bulletRigidBody.velocity = playerBulletModel.bulletVelocity;
         }
-
-        bulletRigidBody.velocity = playerBulletModel.bulletVelocity;
     }
 
     public override void OnNotification(string p_event_path, Object p_target, params object[] p_data)
