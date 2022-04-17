@@ -34,13 +34,13 @@ public class EnemyBulletController : BaseBulletController
         {
             bulletRigidBody.velocity = enemyBulletModel.bulletVelocity;
         }
-
     }
 
     public override void OnNotification(string p_event_path, Object p_target, params object[] p_data)
     {
         switch (p_event_path)
         {
+            case BulletHellNotification.EnemyBulletOnCollision:
             case BulletHellNotification.EnemyBulletOnInvisible:
                 GameObject gameObject = (GameObject)p_data[0];
 

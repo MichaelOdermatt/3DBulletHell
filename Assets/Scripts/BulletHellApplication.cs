@@ -24,12 +24,13 @@ public class BulletHellApplication : MonoBehaviour
 
     private Object[] getAllControllers()
     {
-        Object[] bulletHellElements = new Object[4];
+        Object[] bulletHellElements = new Object[5];
 
         bulletHellElements[0] = controllerContainer.cameraController;
         bulletHellElements[1] = controllerContainer.playerBulletController;
         bulletHellElements[2] = controllerContainer.playerController;
         bulletHellElements[3] = controllerContainer.basicEnemyController;
+        bulletHellElements[4] = controllerContainer.enemyBulletController;
 
         return bulletHellElements;
     }
