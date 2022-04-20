@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerView : BulletHellElement 
 {
     public CharacterController characterController;
+    public GameObject characterModel; 
 
     private void OnCollisionEnter(Collision collision)
     {

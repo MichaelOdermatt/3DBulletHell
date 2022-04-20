@@ -82,15 +82,42 @@ public class PlayerController : BulletHellElement, IController
 
                 if (collider.GetComponent<EnemyBulletView>())
                 {
-                    onCollisionWithEnemyBullet();
+                    takeDamage(app.modelContainer.enemyBulletModel.damageAmount);
                 }
 
                 break;
         }
     }
 
-    private void onCollisionWithEnemyBullet()
+    private void takeDamage(int damageAmount)
     {
-        Debug.Log("Hit by bullet");
+        playerModel.health -= damageAmount;
+
+        SkinnedMeshRenderer playerMeshRenderer = app.
+            viewContainer.
+            playerView.
+            characterModel.
+            GetComponent<SkinnedMeshRenderer>();
+
+        if (playerMeshRenderer != null)
+        {
+            Color originalColor = playerMeshRenderer.material.color;
+            FlashRed(playerMeshRenderer, originalColor);
+        }
+    }
+
+    private void FlashRed(SkinnedMeshRenderer meshRenderer, Color originalColor)
+    {
+        if (meshRenderer.material.color != playerModel.flashColor)
+        {
+            meshRenderer.material.color = playerModel.flashColor;
+            StartCoroutine(ResetColor(meshRenderer, originalColor, playerModel.flashTime));
+        }
+    }
+
+    private IEnumerator ResetColor(SkinnedMeshRenderer meshRenderer, Color originalColor, float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        meshRenderer.material.color = originalColor; 
     }
 }
